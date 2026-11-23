@@ -1,0 +1,1 @@
+<a class="card" data-t="العناية المركزة والعمليات" data-i="8" href="lessons/lesson-8.html"><span class="num">8</span><b class="ctitle">درس 8 - التشريح البشري</b><small class="csub">العناية المركزة والعمليات</small></a>

@@ -1,70 +1,23 @@
-import os, shutil
-topics = [
-("❤️","القلب"),("🧠","المخ والأعصاب"),("🫁","الجهاز التنفسي"),
-("👩‍⚕️","أساسيات التمريض"),("💉","الأدوية والحقن"),("🦴","العظام"),
-("🩸","الدم"),("🩺","الفحص الطبي"),("💊","الأدوية"),("🦷","الأسنان"),
-("👁️","العيون"),("👂","الأذن"),("👃","الأنف"),("🫀","القلب والأوعية"),
-("🧬","الوراثة"),("🦠","الفيروسات"),("🧫","التحاليل"),("🌡️","الحرارة"),
-("🩹","الجروح"),("🚑","الإسعافات"),("🏥","المستشفى"),("🧑‍⚕️","الطبيب"),
-("🤰","الحمل"),("👶","الأطفال"),("👴","كبار السن"),("🧘","الصحة النفسية"),
-("🥗","التغذية"),("🏃","الرياضة"),("😴","النوم"),("🚬","التدخين"),
-("🍬","السكر"),("🩻","الأشعة"),("🔬","المختبر"),("🧴","العناية بالجلد"),
-("🦵","المفاصل"),("💪","العضلات"),("🧏","السمع"),("🗣️","التخاطب"),
-("🍎","الفيتامينات"),("💧","السوائل"),("🧂","الأملاح"),("🦟","الحشرات"),
-("🐍","لدغات"),("🔥","الحروق"),("❄️","البرد"),("☀️","ضربة الشمس"),
-("🤕","الصداع"),("🤒","الحمى"),("🤮","القيء"),("🤧","البرد والأنفلونزا"),
-("😷","العدوى"),("🧼","النظافة"),("🧻","التعقيم"),("🧤","القفازات"),
-("😬","ألم الأسنان"),("🦶","القدم"),("✋","اليد"),("🦰","الشعر"),
-("💅","الأظافر"),("🧴","البشرة"),("👄","الفم"),("👅","اللسان"),
-("🦴","العمود الفقري"),("🧠","الذاكرة"),("😡","الغضب"),("😰","القلق"),
-("😔","الاكتئاب"),("🧩","التوحد"),("👁️","ضعف النظر"),("🦻","ضعف السمع"),
-("🫘","الكلى"),("🫚","الكبد"),("🫁","الربو"),("❤️‍🩹","ضغط الدم"),
-("🩸","الأنيميا"),("💉","التطعيمات"),("🧪","تحليل الدم"),("🩺","النبض"),
-("📋","التقارير"),("📅","المتابعة"),("💬","التوعية"),("🏠","الرعاية المنزلية"),
-("🛏️","راحة المريض"),("🍲","أكل المريض"),("🚶","المشي"),("🧎","العلاج الطبيعي"),
-("🏋️","التأهيل"),("🧑‍🦽","ذوي الاحتياجات"),("👓","النظارة"),("🦯","العكاز"),
-("🩼","الجبس"),("🛌","النوم الصحي"),("🚿","الاستحمام"),("🪥","نظافة الفم"),
-("🧸","طب الأطفال"),("🍼","الرضاعة"),("🤱","حديثي الولادة"),("🧒","النمو"),
-("👧","البلوغ"),("🧑","البالغين"),("👵","الشيخوخة"),("⚰️","الرعاية التلطيفية"),
-("🧑‍🤝‍🧑","الدعم النفسي"),("💑","صحة الأسرة"),("🏡","صحة المجتمع"),("🌍","الصحة العامة"),
-("🦠","البكتيريا"),("💊","المضادات"),("🩹","الضمادات"),("🩸","النزيف"),
-("🚨","الطوارئ"),("🔪","العمليات"),("🩻","الكسر"),("🦴","الخلع"),
-("🤕","الكدمات"),("😵","الإغماء"),("🤢","الغثيان"),("😖","الألم"),
-("🧊","الكمادات"),("🔥","الالتهاب"),("🦷","تقويم الأسنان"),("👀","التهاب العين"),
-("👂","التهاب الأذن"),("🤧","الحساسية"),("😮‍💨","ضيق النفس"),("🫁","التهاب الرئة"),
-("🫀","الذبحة"),("🧠","الجلطة"),("🩸","السكري"),("🍭","سكر الأطفال"),
-("🧂","الضغط العالي"),("💧","الجفاف"),("🥛","الكالسيوم"),("🥩","البروتين"),
-("🥦","الألياف"),("🍔","السمنة"),("🏃‍♂️","اللياقة"),("🧘‍♀️","الاسترخاء"),
-("📱","إدمان الموبايل"),("🎮","صحة الأطفال"),("🚗","حوادث الطرق"),("🏊","الغرق"),
-("🐕","عضة الكلب"),("🐝","لسعة النحل"),("🦂","لدغة العقرب"),("🌡️","قياس الحرارة"),
-("🩺","قياس الضغط"),("🩸","قياس السكر"),("💉","الحقن العضلي"),("💉","الحقن الوريدي"),
-("🩹","تغيير الجرح"),("🧤","لبس الجوانتي"),("🧴","تعقيم اليد"),("📦","صندوق الإسعاف"),
-]
-while len(topics) < 150:
-    topics.append(("📚", f"درس رقم {len(topics)+1}"))
-topics = topics[:150]
-os.makedirs("site", exist_ok=True)
+import os, json, shutil
+from lang_data import langs
+topics = [("🩺","أساسيات التمريض"),("📈","العلامات الحيوية والتقييم"),("💉","الإجراءات التمريضية"),("🖥️","الأجهزة والمعدات الطبية"),("💊","الأدوية والعقاقير"),("🚑","الطوارئ والإسعافات الأولية"),("🏥","العناية المركزة والعمليات"),("🦴","التشريح البشري"),("❤️","وظائف الأعضاء والفسيولوجيا"),("🦠","الأمراض المعدية والمناعة"),("🫁","الأمراض الباطنية"),("☢️","الأشعة والفحوصات التشخيصية"),("🧪","التحاليل الطبية"),("🩹","التخصصات الطبية والجراحية"),("👶","تمريض الأطفال وحديثي الولادة"),("🧠","الصحة النفسية والتأهيل"),("👁️","الأسنان والعيون والجلدية"),("📊","الإدارة والجودة والتكنولوجيا الطبية"),("🥗","التغذية والصحة العامة"),("🤰","صحة الأم والولادة")]
 os.makedirs("site/lessons", exist_ok=True)
-cards = ""
-for i,(emo,name) in enumerate(topics,1):
-    cards += f'<a class="icon" href="lessons/lesson-{i}.html"><div class="img">{emo}</div><span>{name}</span></a>'
-index = f"""<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>خالد أكاديمي</title><style>
-*{{box-sizing:border-box}}body{{margin:0;font-family:system-ui;background:#f6f6f8}}
-.banner img{{width:100%;display:block;max-height:240px;object-fit:cover}}
-h1{{text-align:center;font-size:22px;padding:10px}}
-.grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}}
-.icon{{background:#fff;border-radius:16px;padding:10px;text-align:center;text-decoration:none;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.08);display:block}}
-.img{{font-size:42px;height:80px;display:flex;align-items:center;justify-content:center;background:#eef2ff;border-radius:12px}}
-.icon span{{display:block;margin-top:8px;font-size:13px;font-weight:700;line-height:1.3}}
-</style></head><body>
-<div class="banner"><img src="banner.jpg"></div>
-<h1>نظام الـ 150 أيقونة</h1>
-<div class="grid">{cards}</div>
-</body></html>"""
-open("site/index.html","w",encoding="utf-8").write(index)
-for i,(emo,name) in enumerate(topics,1):
-    html = f"""<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{name}</title><style>body{{font-family:system-ui;padding:20px;max-width:700px;margin:auto}}a{{color:#2563eb}} .big{{font-size:80px;text-align:center}}</style></head><body><a href="../index.html">⬅ رجوع</a><div class="big">{emo}</div><h1>{name}</h1><p>هنا هنكتب شرح {name}.</p></body></html>"""
-    open(f"site/lessons/lesson-{i}.html","w",encoding="utf-8").write(html)
-if os.path.exists("banner.jpg"):
-    shutil.copy("banner.jpg","site/banner.jpg")
-print("DONE 150 icons")
+lessons = [(i, *topics[(i - 1) % len(topics)]) for i in range(1, 501)]
+btns = "\n".join(f'<button class="tbtn{" active" if n=="All" else ""}" data-t="{n}"><span class="te">{e}</span><span class="tl">{n}</span></button>' for e, n in [("📋", "All")] + topics)
+cards = "\n".join(f'<a class="card" data-t="{n}" data-i="{i}" href="lessons/lesson-{i}.html"><span class="num">{i}</span><b class="ctitle">درس {i} - {n}</b><small class="csub">{n}</small></a>' for i, e, n in lessons)
+lmenu = "\n".join(f'<button class="litem" data-lang="{k}"><span>{v[0]}</span><span>{v[1]}</span></button>' for k, v in langs.items())
+css = "*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#0f1f2e;color:#fff;padding:12px}.topbar{display:flex;justify-content:flex-end;position:relative;margin-bottom:8px}.trbtn{display:flex;align-items:center;gap:6px;background:#1e3a52;color:#fff;border:1px solid #2d5475;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}.lpop{display:none;position:absolute;top:44px;inset-inline-end:0;background:#162b3d;border:1px solid #2d5475;border-radius:12px;padding:6px;z-index:20;min-width:190px}.lpop.open{display:flex;flex-direction:column;gap:4px}.litem{display:flex;align-items:center;gap:8px;background:transparent;color:#fff;border:none;border-radius:8px;padding:8px 10px;text-align:start;cursor:pointer;font-weight:600}.litem:hover{background:#234561}.banner img{width:100%;height:auto;display:block;border-radius:12px;margin-bottom:14px}.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}.tbtn{display:flex;align-items:center;justify-content:center;gap:6px;background:#1e3a52;color:#fff;border:1px solid #2d5475;border-radius:10px;padding:10px 6px;font-weight:700;font-size:12px;text-align:center;cursor:pointer}.tbtn.active{background:#0ea5e9;color:#06131f}.lgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;background:#1b364d;border:1px solid #2a4f6e;border-radius:12px;padding:14px 10px;color:#fff;gap:6px}.num{width:32px;height:32px;border-radius:50%;background:#2dd4bf;color:#062026;font-weight:800;display:flex;align-items:center;justify-content:center}small{color:#cbd5e1}.hide{display:none!important}"
+js = f"""const L={json.dumps(langs,ensure_ascii=False)},pop=document.getElementById('lpop'),tbtn=document.getElementById('trbtn');
+tbtn.onclick=e=>{{e.stopPropagation();pop.classList.toggle('open');}};
+document.addEventListener('click',()=>pop.classList.remove('open'));
+function applyLang(c){{const d=L[c]||L.ar;document.documentElement.lang=c;document.documentElement.dir=d[2];document.title=d[3];document.getElementById('curLang').textContent=d[0]+' '+d[1];document.querySelectorAll('.tbtn').forEach(b=>{{if(b.dataset.t==='All')b.querySelector('.tl').textContent=d[4];}});document.querySelectorAll('.card').forEach(card=>{{const i=card.dataset.i,t=card.dataset.t;card.querySelector('.ctitle').textContent=d[5]+' '+i+' - '+t;card.querySelector('.csub').textContent=d[6]+': '+t;}});localStorage.setItem('ka_lang',c);}}
+document.querySelectorAll('.litem').forEach(x=>x.onclick=()=>applyLang(x.dataset.lang));
+const bs=document.querySelectorAll('.tbtn'),cs=document.querySelectorAll('.card');
+bs.forEach(b=>b.onclick=()=>{{bs.forEach(x=>x.classList.remove('active'));b.classList.add('active');const t=b.dataset.t;cs.forEach(c=>c.classList.toggle('hide',t!=='All'&&c.dataset.t!==t));}});
+applyLang(localStorage.getItem('ka_lang')||'ar');"""
+html = f'<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>خالد أكاديمي</title><style>{css}</style></head><body><div class="topbar"><button id="trbtn" class="trbtn" type="button">🌐 <span id="curLang">🇸🇦 العربية</span></button><div id="lpop" class="lpop">{lmenu}</div></div><div class="banner"><img src="banner.jpg" alt=""></div><div class="tgrid">{btns}</div><div class="lgrid">{cards}</div><script>{js}</script></body></html>'
+open("site/index.html", "w", encoding="utf-8").write(html)
+print("HTML_BUILT")
+for i, e, n in lessons: open(f"site/lessons/lesson-{i}.html", "w", encoding="utf-8").write(f'<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>درس {i}</title></head><body style="font-family:system-ui;background:#0f1f2e;color:#fff;padding:20px;text-align:center"><a href="../index.html" style="color:#38bdf8">← الرئيسية</a><h2>{e} درس {i} - {n}</h2><p>القسم: {n}</p></body></html>')
+if os.path.exists("banner.jpg"): shutil.copy("banner.jpg", "site/banner.jpg")
+print("ALL_READY")
